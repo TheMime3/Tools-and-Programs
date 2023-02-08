@@ -51,10 +51,9 @@ def on_decrypt_clicked():
     decrypted_text_entry.delete(0, tk.END)
     decrypted_text_entry.insert(0, decrypted_text)
 
-def on_copy_all(key1_entry, key2_entry, encrypted_text_entry):
-    copyall_text_entry.insert(0, key1_entry)
-    copyall_text_entry.insert(0, key2_entry)
-    copyall_text_entry.insert(0, encrypted_text_entry)
+def on_copy_all():
+    serializedString = encrypted_text_entry.get()+" | ["+key1_entry.get()+":"+key2_entry.get()+"]"
+    copyall_text_entry.insert(0,serializedString)
 
 
 root = tk.Tk()
