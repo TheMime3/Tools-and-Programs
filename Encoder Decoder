@@ -1,0 +1,71 @@
+import string
+import random
+
+def encode(plaintext, key1, key2):
+    alphabet = string.ascii_letters
+    encrypted_text = ""
+    for i, char in enumerate(plaintext):
+        if char in alphabet:
+            char_index = (alphabet.index(char) + key1 + key2) % len(alphabet)
+            encrypted_text += alphabet[char_index]
+        else:
+            encrypted_text += "_"
+    return encrypted_text
+
+def decode(encrypted_text, key1, key2):
+    alphabet = string.ascii_letters
+    plaintext = ""
+    for i, char in enumerate(encrypted_text):
+        if char in alphabet:
+            char_index = (alphabet.index(char) - key1 - key2) % len(alphabet)
+            plaintext += alphabet[char_index]
+        else:
+            plaintext += " "
+    return plaintext
+
+def key_generator():
+    alphabet = string.ascii_letters
+    key1 = random.randint(1, len(alphabet) - 1)
+    key2 = random.randint(1, len(alphabet) - 1)
+    return key1, key2
+
+def binary_encode(text):
+    """Convert text to binary"""
+    binary = ' '.join(format(ord(x), 'b') for x in text)
+    return binary
+
+def binary_decode(binary):
+    """Convert binary to text"""
+    binary = binary.split()
+    text = ''.join(chr(int(x, 2)) for x in binary)
+    return text
+
+def main():
+    print("Welcome to the text encryption/decryption program")
+    while True:
+        action = input("Would you like to encode, decode, binary encode or binary decode a message? (e/d/be/bd): ")
+        if action.lower() == "e":
+            plaintext = input("Enter the text to encode: ")
+            key1, key2 = key_generator()
+            encrypted_text = encode(plaintext, key1, key2)
+            print(f"Encrypted text: {encrypted_text}")
+            print(f"Key1: {key1} Key2: {key2}")
+        elif action.lower() == "d":
+            encrypted_text = input("Enter the encrypted text: ")
+            key1 = int(input("Enter Key1: "))
+            key2 = int(input("Enter Key2: "))
+            plaintext = decode(encrypted_text, key1, key2)
+            print(f"Decrypted text: {plaintext}")
+        elif action.lower() == "be":
+            text = input("Enter text to binary encode: ")
+            binary = binary_encode(text)
+            print(f"Binary encoded text: {binary}")
+        elif action.lower() == "bd":
+            binary = input("Enter binary to decode: ")
+            text = binary_decode(binary)
+            print(f"Binary decoded text: {text}")
+        else:
+            print("Invalid input, try again.")
+
+if __name__ == "__main__":
+    main()
