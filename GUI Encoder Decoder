@@ -1,3 +1,6 @@
+"Creator: TheMime3"
+"With help from: ChatGPT, Deadarmour,adamclmns"
+
 import tkinter as tk
 import string
 import random
@@ -49,8 +52,9 @@ def on_decrypt_clicked():
     decrypted_text_entry.insert(0, decrypted_text)
 
 def on_copy_all(key1_entry, key2_entry, encrypted_text_entry):
-    combined_keys = key2_entry, key1_entry
-    copyall_text_entry.insert(encrypted_text_entry, combined_keys)
+    copyall_text_entry.insert(0, key1_entry)
+    copyall_text_entry.insert(0, key2_entry)
+    copyall_text_entry.insert(0, encrypted_text_entry)
 
 
 root = tk.Tk()
@@ -75,7 +79,7 @@ copyall_text_entry = tk.Entry(root)
 # Buttons
 encrypt_button = tk.Button(root, text="Encrypt", command=on_encrypt_clicked)
 decrypt_button = tk.Button(root, text="Decrypt", command=on_decrypt_clicked)
-copyall_button = tk.Button(root, text="Copy All Encrypted", command=on_copy_all)
+copyall_button = tk.Button(root, text="Copy All Encrypted", command=on_copy_all(key1_entry, key2_entry, encrypted_text_entry))
 
 # Grid layout
 plaintext_label.grid(row=0, column=0)
